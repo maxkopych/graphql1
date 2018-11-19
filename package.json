@@ -1,0 +1,24 @@
+{
+  "name": "graphql1",
+  "version": "1.0.0",
+  "description": "Simple GraphQL Server",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxkopych/graphql1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxkopych/graphql1/issues"
+  },
+  "homepage": "https://github.com/maxkopych/graphql1#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "nodemon": "^1.18.6"
+  }
+}
