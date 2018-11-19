@@ -57,6 +57,72 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+//Mutations
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    //######################################
+    addCustomer: {
+      type: CustomerType,
+      args:{
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        email: {type: new GraphQLNonNull(GraphQLString)},
+        age: {type: new GraphQLNonNull(GraphQLInt)}
+      },
+      resolve(parentVal, args){
+        return axios.post("http://localhost:3000/customers/", {
+          name: args.name,
+          email: args.email,
+          age: args.age,
+        }).then( res => res.data );
+      }
+    },
+    //######################################
+    deleteCustomer: {
+      type: CustomerType,
+      args:{
+        id: {type: new GraphQLNonNull(GraphQLString)},
+      },
+      resolve(parentVal, args){
+        return axios.delete("http://localhost:3000/customers/"+ args.id).then( res => res.data );
+      }
+    },
+    //######################################
+    //axios.patch
+    updateCustomer: {
+      type: CustomerType,
+      args:{
+        id: {type: new GraphQLNonNull(GraphQLString)},
+        name: {type: GraphQLString},
+        email: {type: GraphQLString},
+        age: {type: GraphQLInt}
+      },
+      resolve(parentVal, args){
+        return axios.patch("http://localhost:3000/customers/"+args.id, {
+          name: args.name,
+          email: args.email,
+          age: args.age,
+        }).then( res => res.data );
+      }
+    },
+  }
+});
+/*
+ mutation{
+  addCustomer(name:"Max Kopych", email: "test@test.com",age: 30){
+    id,
+    name,
+    email
+  }
+}
+* */
+/*mutation{ --- this how you make calls
+      updateCustomer(id: "VcheYmN", age:50){
+        age
+      }
+    }*/
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 });
